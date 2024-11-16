@@ -37,10 +37,10 @@ def send_message():
     entry.delete(0, tk.END)  # 清空输入框  
 
     # 调用 Dashscope API 生成响应  
-    response, error_message = call_agent_app(user_input)  
+    response= call_agent_app(user_input)  
 
     if response is None:  # 处理API调用错误  
-        append_to_chat(f"错误信息: {error_message}\n")  
+        append_to_chat(f"错误信息: {response}\n")  
         return  
 
     if response.status_code != HTTPStatus.OK:  
@@ -48,7 +48,7 @@ def send_message():
         return  
 
     # 显示助手的响应到聊天历史  
-    append_to_chat(f"助手: {response.output}\n")  
+    append_to_chat(f"助手: {response.output.text}\n")  
 
     # 检查是否为再见  
     if "再见" in response.output:  
